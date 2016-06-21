@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using PaperRecognize.Repository;
 using PaperRecognize.DTOs;
+using PaperRecognize.DTOs.PaperDTO;
 using PaperRecognize.Business;
 using System.Web;
 using System.Threading.Tasks;

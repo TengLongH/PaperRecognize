@@ -7,7 +7,10 @@ using AutoMapper;
 
 using PaperRecognize.DTOs;
 using PaperRecognize.Models;
-
+using PaperRecognize.DTOs.UserDTO;
+using PaperRecognize.DTOs.DepartmentDTO;
+using PaperRecognize.DTOs.PersonDTO;
+using PaperRecognize.DTOs.PaperDTO;
 namespace PaperRecognize.AutoMapperConfig
 {
     public class MapperConfig
@@ -16,13 +19,18 @@ namespace PaperRecognize.AutoMapperConfig
         {
             Mapper.Initialize( mapper => {
                 mapper.CreateMap<Paper, GetOnePaperDTO>();
+
                 mapper.CreateMap<Author, GetOneAuthorDTO>();
                 mapper.CreateMap<Author_Person, GetAuthorPersonDTO>();
                 mapper.CreateMap<Author_Person, Author_Person>();
 
+                mapper.CreateMap<Person, GetPersonDTO>()
+                    .ForMember(entity => entity.DepartmentId, opt=>opt.Ignore());
+                mapper.CreateMap<AddUserDTO, User>();
+                mapper.CreateMap<Department, GetDepartmentDTO>();
                 mapper.CreateMap<Person, GetPersonDTO>();
-                 
 
+                
             });
            
         }

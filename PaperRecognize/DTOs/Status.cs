@@ -23,9 +23,9 @@ namespace PaperRecognize.DTOs
     }
     public enum Role
     {
-        SCHOOLADMIN,
-        DEPTADMIN ,
-        EXPERT ,
+        SCHOOLADMIN = 10,
+        DEPTADMIN = 1,
+        EXPERT = 2,
         STUDENT
     }
 

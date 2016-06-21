@@ -7,6 +7,7 @@ using System.Text;
 using AutoMapper;
 using PaperRecognize.Models;
 using PaperRecognize.DTOs;
+using PaperRecognize.DTOs.PaperDTO;
 using System.Data.SqlClient;
 
 namespace PaperRecognize.Repository
@@ -230,12 +231,6 @@ namespace PaperRecognize.Repository
             return list;
         }
 
-        public IEnumerable<GetPersonDTO> GetPerson(Role role)
-        {
-            List<GetPersonDTO> persons = null;
-            string sql = "select * from Person where PersonType = " + (int)role;
-            persons = context.Database.SqlQuery<GetPersonDTO>(sql).ToList();
-            return persons;
-        }
+      
     }
 }

@@ -22,21 +22,30 @@
 
 
             
-            $http.get("api/academy/getManagers1")
-                .success(function(response) {
-                    $scope.names = response.managers;
+            $http.get("http://localhost:61355/api/managers")
+                .success(function (response) {
+                    $scope.names = response;
                 });
 
-            $http.get("api/academy/getAcademys")
+            
+            $http.get("http://localhost:61355/api/departments")
                 .success(function(response) {
-                    $scope.academys = response.academys;
+                    $scope.academys = response;
+                    console.log($scope.academys)
                 });
+            
 
             $scope.creat = function() {
                 $http({
                     method: 'POST',
-                    url: 'api/academy/creatAcademy',
-                    data: $.param($scope.creatData)
+                    url: 'http://localhost:61355/api/user',
+                    //data: $.param($scope.creatData)
+                    data: {
+                        "Name": $scope.creatData.Name,
+                        "Password": $scope.creatData.Password,
+                        "Role": "1",
+                        "DepartmentId":"67"
+                    }
                 }).success(
                     function() {
                         window.location.reload(true);
@@ -46,8 +55,8 @@
 
             $scope.updata = function() {
                 $http({
-                    mothed: 'POST',
-                    url: 'api/academy/updataAcademy',
+                    mothed: 'PUT',
+                    url: 'http://localhost:61355/api/user',
                     data:$.param($scope.updataData)
                 }).success(
                     function () {
@@ -57,15 +66,24 @@
             }
 
             $scope.delete = function () {
+                $http.delete('http://localhost:61355/api/user/' + $scope.name + '/1')
+                    .success(
+                    function () {
+                        window.location.reload(true);
+                    }
+                );
+
+                /*
                 $http({
-                    mothed: 'POST',
-                    url: 'api/academy/deleteAcademy',
+                    mothed: 'DELETE',
+                    url: 'http://localhost:61355/api/user',
                     data: $.param($scope.name)
                 }).success(
                     function () {
                         window.location.reload(true);
                     }
                 );
+                */
             }
 
 
@@ -155,7 +173,7 @@
                 <div class="col-lg-4 row">
                     <label for="select" class="col-lg-2 control-label" style="font-size: large; padding-top: 8px">院系</label>
                     <div class="col-lg-10">
-                        <select class="form-control" id="select" ng-model="selectedAcademy" ng-options="name for academy in academys"></select>
+                        <select class="form-control" id="select" ng-model="selectedAcademy" ng-options="academy.Name for academy in academys"></select>
                     </div>
                 </div>
 
@@ -177,10 +195,7 @@
                         <th>编号</th>
                         <th>中文名</th>
                         <th>英文名</th>
-                        <th>英文缩写</th>
                         <th>性别</th>
-                        <th>生日</th>
-                        <th>ID卡</th>
                         <th>手机</th>
                         <th>电子邮件</th>
                         <th>修改</th>
@@ -188,43 +203,19 @@
                     </tr>
                     </thead>
                     <tbody>
-
-
-
-
-
-
-
                     <!--ngRepeat-->
-                    <tr ng-repeat="name in names | filter : selectedAcademy">
+                    <tr ng-repeat="name in names | filter : selectedAcademy.Id">
                         <td>{{$index + 1}}</td>
                         <td>{{name.PersonNo}}</td>
                         <td>{{name.NameCN}}</td>
                         <td>{{name.NameEN}}</td>
-                        <td>{{name.NameENAbbr}}</td>
                         <td>{{name.Sex}}</td>
-                        <td>{{name.Birthday}}</td>
-                        <td>{{name.IDCard}}</td>
                         <td>{{name.Mobile}}</td>
                         <td>{{name.Email}}</td>
                         <td><a ng-model="name" data-toggle="modal" data-target="#updataModal" class="btn btn-warning btn-sm">修改</a></td>
                         <td><a ng-model="name" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger btn-group-sm">删除</a></td>
                     </tr>
-                    <!--end ngRepeat-->
-                    <tr>
-                        <td>1</td>
-                        <td>020330211012</td>
-                        <td>窦方坤</td>
-                        <td>dongfonkey</td>
-                        <td>未知</td>
-                        <td>男</td>
-                        <td>1993.4.10</td>
-                        <td>370724199304107653</td>
-                        <td>15621090392</td>
-                        <td>923470791@qq.com</td>
-                        <td><a data-toggle="modal" data-target="#updataModal" class="btn btn-warning btn-sm">修改</a></td>
-                        <td><a data-toggle="modal" data-target="#deleteModal" class="btn btn-danger btn-group-sm">删除</a></td>
-                    </tr>
+                   
 
                     </tbody>
                 </table>
@@ -248,7 +239,7 @@
                         <div class="form-group row">
                             <label for="inputName" class="col-lg-3 control-label">中文名</label>
                             <div class="col-lg-9">
-                                <input ng-model="creatData.CNname" type="text" class="form-control" id="inputName" placeholder="请输入中文名"/>
+                                <input ng-model="creatData.Name" type="text" class="form-control" id="inputName" placeholder="请输入中文名" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -266,7 +257,7 @@
                         <div class="form-group row">
                             <label for="inputPassword" class="col-lg-3 control-label">密码</label>
                             <div class="col-lg-9">
-                                <input ng-model="creatData.password" type="password" class="form-control" id="inputPassword" placeholder="请输入密码"/>
+                                <input ng-model="creatData.Password" type="password" class="form-control" id="inputPassword" placeholder="请输入密码" />
                             </div>
                         </div>
                         <div class="form-group row">
