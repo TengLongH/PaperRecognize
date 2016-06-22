@@ -13,23 +13,19 @@ namespace PaperRecognize.Utils
         public static bool isSchoolAdmin(HttpSessionState session)
         {
             int role = GetRole(session);
-            return role == (int)Role.SCHOOLADMIN;
+            return role == (int)UserRole.SCHOOLADMIN;
         }
         public static bool isSchoolDepartAdmin(HttpSessionState session)
         {
             int role = GetRole(session);
-            return role == (int)Role.DEPTADMIN;
+            return role == (int)UserRole.DEPTADMIN;
         }
         public static bool isSchoolExpert(HttpSessionState session)
         {
             int role = GetRole(session);
-            return role == (int)Role.EXPERT;
+            return role == (int)UserRole.COMMON;
         }
-        public static bool isStudent( HttpSessionState session )
-        {
-            int role = GetRole(session);
-            return role == (int)Role.STUDENT;
-        }
+      
         private static int GetRole(HttpSessionState session)
         {
             if (null == session["role"]) throw new Exception("please login");

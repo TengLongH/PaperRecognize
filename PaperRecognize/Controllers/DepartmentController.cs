@@ -18,5 +18,10 @@ namespace PaperRecognize.Controllers
         {
             return repository.GetDepartments();
         }
+        [Route("api/colleges")]
+        public IEnumerable<GetDepartmentDTO> GetColleges()
+        {
+            return repository.GetColleges();
+        }
     }
 }

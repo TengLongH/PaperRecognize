@@ -16,5 +16,13 @@ namespace PaperRecognize.Repository
         {
             return context.Department.Select(Mapper.Map<GetDepartmentDTO>).ToList();
         }
+
+        public IEnumerable<GetDepartmentDTO> GetColleges()
+        {
+            return context.Department
+                .Where( d =>d.Type >= 10 && d.Type < 20 )
+                .Select(Mapper.Map<GetDepartmentDTO>).ToList();
+        }
+
     }
 }

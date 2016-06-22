@@ -40,7 +40,7 @@ namespace PaperRecognize.Repository
             
             if (!AcceptPassword( dto.Password))
                 return "password contains digital alphabet and underline the length is 6-20";
-            if (!(dto.Role == (int)Role.DEPTADMIN || dto.Role == (int)Role.EXPERT || dto.Role == (int)Role.STUDENT))
+            if (!(dto.Role == (int)UserRole.DEPTADMIN || dto.Role == (int)UserRole.COMMON))
             {
                 return "the role is error";
             }

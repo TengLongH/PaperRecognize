@@ -21,12 +21,11 @@ namespace PaperRecognize.DTOs
         CLAIM,
         UNCLAIM
     }
-    public enum Role
+    public enum UserRole
     {
-        SCHOOLADMIN = 10,
-        DEPTADMIN = 1,
-        EXPERT = 2,
-        STUDENT
+        COMMON ,
+        DEPTADMIN ,
+        SCHOOLADMIN,
     }
 
     public enum DepartmentType
